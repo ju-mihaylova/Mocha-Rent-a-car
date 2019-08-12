@@ -2,9 +2,12 @@
   <nav>
     <v-app-bar app dark class="brown">
       <router-link to="/"
-      tag="v-toolbar-title" class="headline toolbar-title" :style="{ cursor: 'pointer'}">
-          <span class="mr-1">Mocha</span>
-          <span class="font-weight-light">Rent-a-car</span>
+        tag="v-toolbar-title" 
+        class="headline toolbar-title" 
+        :style="{ cursor: 'pointer'}"
+      >
+        <span class="mr-1">Mocha</span>
+        <span class="font-weight-light">Rent-a-car</span>
       </router-link>
       <v-spacer></v-spacer>
       <template v-if="isAuthorized">
