@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <page-header></page-header>
-    <v-content>
+    <v-content class="ma-4">
       <router-view></router-view>
     </v-content>
     <page-footer></page-footer>
