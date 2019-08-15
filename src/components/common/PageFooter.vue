@@ -15,7 +15,7 @@
       <v-spacer></v-spacer>
 
       <v-card-text class="white--text">
-        {{ new Date().getFullYear() }} — <v-caption><strong>Mocha</strong> Rent-a-car</v-caption>
+        {{ new Date().getFullYear() }} — <span class="v-caption"><strong>Mocha</strong> Rent-a-car</span>
       </v-card-text>
     </v-card>
   </v-footer>
