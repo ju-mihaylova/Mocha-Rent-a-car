@@ -125,6 +125,7 @@
 </template>
 
 <script>
+import { auth, db } from '@/fb'
 export default {
   props: [
     'carBrand',
@@ -143,8 +144,8 @@ export default {
     licenseRules: [
       v => !!v || 'License is required',
       v => /^\d{9}$/.test(v) || 'License must be valid',
-
-    ]
+    ],
+    name: ''
   }),
   computed: {
     totalPrice() {
@@ -176,19 +177,34 @@ export default {
       this.dateStart = new Date().toISOString().substr(0, 10);
       this.dateEnd = new Date().toISOString().substr(0, 10);
     },
+    addBooking() {
+      // add booking info
+      db.collection('users').doc(auth.currentUser.uid).get()
+        .then(doc => {
+          return db.collection('booking').add({
+                    userName: doc.data().name,
+                    carBrand: this.carBrand,
+                    carModel: this.carModel,
+                    startDate: this.dateStart,
+                    endDate: this.dateEnd,
+                    price: this.carPrice,
+                    total: this.totalPrice
+                });       
+        }).then(() => {
+                this.dialog = false;
+                this.$refs.form.reset();
+                this.dateStart = new Date().toISOString().substr(0, 10);
+                this.dateEnd = new Date().toISOString().substr(0, 10);
+            }).catch(err => {
+                console.log(err.message);
+            });  
+    },
     book () {
       if (!this.$refs.form.validate()) {
         this.snackbar = true;
       } else {
-        
-
-
-        // close dialog
-        this.dialog = false;
-        // reset form
-        this.$refs.form.reset();
-        this.dateStart = new Date().toISOString().substr(0, 10);
-        this.dateEnd = new Date().toISOString().substr(0, 10);
+        // send info to database
+        this.addBooking();    
       }
     },
     onDateStartClick () {
