@@ -107,9 +107,6 @@
                         far fa-trash-alt
                     </v-icon>
                     </template>
-                    <template v-slot:no-data>
-                    <v-btn color="primary" @click="initialize">Reset</v-btn>
-                    </template>
                  </v-data-table>
 
         </v-container>
@@ -226,7 +223,6 @@ export default {
     },
 
     deleteItem (item) {
-      const index = this.cars.indexOf(item);
       if (confirm('Are you sure you want to delete this item?')) {
           db.collection('cars').doc(item.id).delete();
         }
