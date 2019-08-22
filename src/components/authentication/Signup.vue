@@ -111,9 +111,10 @@ export default {
                 return db.collection('users').doc(cred.user.uid).set({
                     name
                 });
-            }).then(() => {
+                
+            }).then(() => {               
                 this.dialog = false;
-                this.$refs.form.reset();
+                // this.$refs.form.reset();
             }).catch(err => {
                 console.log(err.message);
             });
