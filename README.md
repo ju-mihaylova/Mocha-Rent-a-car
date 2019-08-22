@@ -1,29 +1,24 @@
-# mocha-rent-a-car
+# Mocha Rent-a-car
+A car rental service
 
-## Project setup
-```
-npm install
-```
+## Idea
+An application that provides registered users a car rental service in Bulgaria.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Design
+The application is split into three parts
 
-### Compiles and minifies for production
-```
-npm run build
-```
+* Main area
+    * Guests can view car info
+    * About page
+    * Contacts page
+    * Direct signup provided
+    * Direct login provided
 
-### Run your tests
-```
-npm run test
-```
+* Customers area
+    * Customers can rent a car
 
-### Lints and fixes files
-```
-npm run lint
-```
+* Admin area
+    * Admins can manage car data (all CRUD operations)
+    * Admins can manage booking data (all CRUD operations)
+    * Admins can make a registered user an admin
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
