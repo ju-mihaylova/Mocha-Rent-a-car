@@ -36,7 +36,7 @@
                         <v-card-actions>
 
                         <car-rent 
-                            v-if="isAuthenticated"
+                            v-if="isLoggedin"
                             :carBrand="car.brand"
                             :carModel="car.model"
                             :carId="car.id"

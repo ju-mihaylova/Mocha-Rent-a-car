@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home/Home'
 import About from '@/components/common/About'
-import Login from '@/components/authentication/Login'
+import Contacts from '@/components/common/Contacts'
+import CarDataTable from '@/components/admin/CarDataTable'
+import BookingDataTable from '@/components/admin/BookingDataTable'
 
 Vue.use(Router)
 
@@ -21,9 +23,19 @@ export default new Router({
       component: About
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login
-    }
+      path: '/contacts',
+      name: 'contacts',
+      component: Contacts
+    },
+    {
+      path: '/car-data-table',
+      // name: 'cardatatable',
+      component: CarDataTable
+    },
+    {
+      path: '/booking-data-table',
+      // name: 'bookingdatatable',
+      component: BookingDataTable
+    },
   ]
 })

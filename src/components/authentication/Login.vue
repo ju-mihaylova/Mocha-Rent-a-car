@@ -59,7 +59,7 @@
 
 
 <script>
-import { db, auth, functions } from '@/fb'
+import { auth } from '@/fb'
 
   export default {
     data: () => ({
@@ -92,13 +92,21 @@ import { db, auth, functions } from '@/fb'
 
           auth.signInWithEmailAndPassword(email, password)
               .then(cred => {
-                  console.log(cred.user);
-                  // close the login modal and reset the form
+                  return auth.currentUser.getIdTokenResult();                  
+              }).then(idTokenResult => {
+                  this.isAdmin = idTokenResult.claims.admin;
+                  // close the login modal and reset the form 
                   this.dialog = false;
                   this.$refs.form.reset();
-              }).catch(err => {
+                  // if admin role, reroute to Car Data Table
+                  if(this.isAdmin) {
+                    this.$router.push('car-data-table');
+                  }
+                  }).catch(err => {
                   console.log(err.message);
               });
+              
+              
         }
       }
     },
