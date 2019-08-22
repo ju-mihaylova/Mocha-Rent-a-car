@@ -17,11 +17,9 @@ Vue.mixin({
     auth.onAuthStateChanged(user => {
       if (user) {
         user.getIdTokenResult().then(idTokenResult => {
-          // user.admin = idTokenResult.claims.admin;
-          this.isAdmin = idTokenResult.claims.admin;
+           this.isAdmin = idTokenResult.claims.admin;
         })
         this.isLoggedin = true;
-        this.isAdmin = true;
       } else {
         this.isLoggedin = false;
         this.isAdmin = false;
