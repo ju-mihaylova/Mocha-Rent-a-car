@@ -97,7 +97,7 @@ created() {
                 })
             }
         });
-    });
+    }, err => console.log(err.message));
 }
 };
 </script>

@@ -231,7 +231,7 @@ export default {
               this.deleteFromUI(change);
           }
       });
-    });
+    }, err => console.log(err.message));
   },
 }
 </script>
