@@ -59,7 +59,7 @@
 
 
 <script>
-import { auth } from '@/fb'
+import { userLoginService } from '@/services/userLoginService'
 
   export default {
     data: () => ({
@@ -76,6 +76,10 @@ import { auth } from '@/fb'
         v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) || 'Password must be at least 8 characters long and include at least one letter and one number',
       ],
     }),
+    
+    mixins: [
+      userLoginService
+    ],
 
     methods: {
       cancel () {
@@ -86,27 +90,7 @@ import { auth } from '@/fb'
         if (!this.$refs.form.validate()) {
           this.snackbar = true;
         } else {
-              // get user info
-          const email = this.email;
-          const password = this.password;
-
-          auth.signInWithEmailAndPassword(email, password)
-              .then(cred => {
-                  return auth.currentUser.getIdTokenResult();                  
-              }).then(idTokenResult => {
-                  this.isAdmin = idTokenResult.claims.admin;
-                  // close the login modal and reset the form 
-                  this.dialog = false;
-                  this.$refs.form.reset();
-                  // if admin role, reroute to Car Data Table
-                  if(this.isAdmin) {
-                    this.$router.push('car-data-table');
-                  }
-                  }).catch(err => {
-                  console.log(err.message);
-              });
-              
-              
+          this.loginUser();         
         }
       }
     },

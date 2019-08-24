@@ -68,7 +68,7 @@
 
 
 <script>
-import { db, auth, functions } from '@/fb'
+import { userCreateService } from '@/services/userCreateService'
 
 export default {
     data: () => ({
@@ -91,6 +91,10 @@ export default {
       ],
     }),
 
+    mixins: [
+      userCreateService
+    ],
+
     methods: {
       cancel () {
         this.dialog = false;
@@ -100,24 +104,7 @@ export default {
         if (!this.$refs.form.validate()) {
           this.snackbar = true;
         } else {
-        // get user info
-        const name = this.name;
-        const email = this.email;
-        const password = this.password;
-
-        // sign up the user
-        auth.createUserWithEmailAndPassword(email, password)
-            .then(cred => {
-                return db.collection('users').doc(cred.user.uid).set({
-                    name
-                });
-                
-            }).then(() => {               
-                this.dialog = false;
-                // this.$refs.form.reset();
-            }).catch(err => {
-                console.log(err.message);
-            });
+          this.createUser();
         }
       }
     },

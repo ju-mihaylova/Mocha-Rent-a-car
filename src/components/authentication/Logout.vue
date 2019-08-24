@@ -5,13 +5,15 @@
 </template>
 
 <script>
-import { auth } from '@/fb'
+import { userLogoutService } from '@/services/userLogoutService'
 export default {
+  mixins: [
+    userLogoutService
+  ],
+
   methods: {
     logout() {
-      auth.signOut()
-        .then(() => this.$router.push('/'))
-        .catch(err => console.log(err.message));            
+      this.logoutUser();        
     }
   }
 };
