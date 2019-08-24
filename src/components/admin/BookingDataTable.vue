@@ -88,6 +88,7 @@
 
 <script>
 import { db } from '@/fb'
+import { actionsService } from '@/services/actionsService'
 export default {
   data: () => ({
     dialog: false,
@@ -140,6 +141,10 @@ export default {
     },
   },
 
+  mixins: [
+    actionsService
+  ],
+
   methods: {
     //with realtime database listener
     initialize (change) {
@@ -173,7 +178,7 @@ export default {
 
     deleteItem (item) {
       if (confirm('Are you sure you want to delete this item?')) {
-          db.collection('booking').doc(item.id).delete();
+          this.deleteItemFromDB('booking', item);
         }
     },
 
@@ -186,33 +191,21 @@ export default {
     },
 
     save () {
+      const item = {
+            userName: this.editedItem.userName,
+            carBrand: this.editedItem.carBrand,
+            carModel: this.editedItem.carModel,
+            startDate: this.editedItem.startDate,
+            endDate: this.editedItem.endDate,
+            price: this.editedItem.price,
+            total: this.editedItem.total
+        };
       if (this.editedIndex > -1) {
-        const bookingId = this.editedItem.id;
-        //update table        
-        db.collection('booking').doc(bookingId).set({
-            userName: this.editedItem.userName,
-            carBrand: this.editedItem.carBrand,
-            carModel: this.editedItem.carModel,
-            startDate: this.editedItem.startDate,
-            endDate: this.editedItem.endDate,
-            price: this.editedItem.price,
-            total: this.editedItem.total
-        }).then(() => {
-              this.close();
-            });          
+        //update table 
+        this.editItemInDB('booking', item);          
       } else {
-        //create item
-        db.collection('booking').add({
-            userName: this.editedItem.userName,
-            carBrand: this.editedItem.carBrand,
-            carModel: this.editedItem.carModel,
-            startDate: this.editedItem.startDate,
-            endDate: this.editedItem.endDate,
-            price: this.editedItem.price,
-            total: this.editedItem.total
-        }).then(() => {
-              this.close();        
-            });            
+        //create item 
+        this.createItemInDB('booking', item);           
       }        
     }
   },

@@ -117,6 +117,7 @@
 
 <script>
 import { db } from '@/fb'
+import { actionsService } from '@/services/actionsService'
 export default {
   data: () => ({
     dialog: false,
@@ -193,6 +194,10 @@ export default {
     },
   },
 
+  mixins: [
+    actionsService
+  ],
+
   methods: {
     //with realtime database listener
     initialize (change) {
@@ -226,8 +231,8 @@ export default {
 
     deleteItem (item) {
       if (confirm('Are you sure you want to delete this item?')) {
-          db.collection('cars').doc(item.id).delete();
-        }
+        this.deleteItemFromDB('cars', item);
+      }
     },
 
     close () {
@@ -239,47 +244,28 @@ export default {
     },
 
     save () {
+      const item = {
+        brand: this.editedItem.brand,
+        model: this.editedItem.model,
+        category: this.editedItem.category,
+        price: this.editedItem.price,
+        year: this.editedItem.year,
+        doors: this.editedItem.doors,
+        seats: this.editedItem.seats,
+        consumption: this.editedItem.consumption,
+        trunk: this.editedItem.trunk,
+        airConditioning: this.editedItem.airConditioning,
+        pic: this.editedItem.pic,
+        status: this.editedItem.status,
+        show: this.editedItem.show,
+        description: this.editedItem.description
+      };
       if (this.editedIndex > -1) {
-        const carId = this.editedItem.id;
-        //update table        
-        db.collection('cars').doc(carId).set({
-            brand: this.editedItem.brand,
-            model: this.editedItem.model,
-            category: this.editedItem.category,
-            price: this.editedItem.price,
-            year: this.editedItem.year,
-            doors: this.editedItem.doors,
-            seats: this.editedItem.seats,
-            consumption: this.editedItem.consumption,
-            trunk: this.editedItem.trunk,
-            airConditioning: this.editedItem.airConditioning,
-            pic: this.editedItem.pic,
-            status: this.editedItem.status,
-            show: this.editedItem.show,
-            description: this.editedItem.description
-        }).then(() => {
-              this.close();
-            });          
+        //update table  
+        this.editItemInDB('cars', item);          
       } else {
         //create item
-        db.collection('cars').add({
-            brand: this.editedItem.brand,
-            model: this.editedItem.model,
-            category: this.editedItem.category,
-            price: this.editedItem.price,
-            year: this.editedItem.year,
-            doors: this.editedItem.doors,
-            seats: this.editedItem.seats,
-            consumption: this.editedItem.consumption,
-            trunk: this.editedItem.trunk,
-            airConditioning: this.editedItem.airConditioning,
-            pic: this.editedItem.pic,
-            status: this.editedItem.status,
-            show: this.editedItem.show,
-            description: this.editedItem.description
-        }).then(() => {
-              this.close();        
-            });            
+        this.createItemInDB('cars', item);          
       }        
     },
     getColor (status) {
