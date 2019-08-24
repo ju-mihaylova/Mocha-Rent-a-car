@@ -68,7 +68,7 @@
 
 
 <script>
-import { userCreateService } from '@/services/userCreateService'
+import { userAuthService } from '@/services/userAuthService'
 
 export default {
     data: () => ({
@@ -92,7 +92,7 @@ export default {
     }),
 
     mixins: [
-      userCreateService
+      userAuthService
     ],
 
     methods: {

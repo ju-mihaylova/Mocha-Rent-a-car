@@ -59,7 +59,7 @@
 
 
 <script>
-import { userLoginService } from '@/services/userLoginService'
+import { userAuthService } from '@/services/userAuthService'
 
   export default {
     data: () => ({
@@ -78,7 +78,7 @@ import { userLoginService } from '@/services/userLoginService'
     }),
     
     mixins: [
-      userLoginService
+      userAuthService
     ],
 
     methods: {

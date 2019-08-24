@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import { userLogoutService } from '@/services/userLogoutService'
+import { userAuthService } from '@/services/userAuthService'
 export default {
   mixins: [
-    userLogoutService
+    userAuthService
   ],
 
   methods: {
