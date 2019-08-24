@@ -9,8 +9,9 @@ import { auth } from '@/fb'
 export default {
   methods: {
     logout() {
-      auth.signOut();
-      // this.$router.replace('/');
+      auth.signOut()
+        .then(() => this.$router.push('/'))
+        .catch(err => console.log(err.message));            
     }
   }
 };
