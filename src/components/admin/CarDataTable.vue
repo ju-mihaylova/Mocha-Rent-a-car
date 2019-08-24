@@ -211,8 +211,10 @@ export default {
     },
 
     deleteFromUI (change) {
-      let item = change.doc.data();
-      let index = this.cars.indexOf(item);
+      let deletedItem = change.doc.data();
+      let id = change.doc.id;
+      let itemToDelete = this.cars.find(x => x.id === id);
+      let index = this.cars.indexOf(itemToDelete);
       this.cars.splice(index, 1);
     },
 
