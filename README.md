@@ -1,5 +1,5 @@
 # Mocha Rent-a-car
-A car rental service
+A car rental service. You can view the project at https://mocha-rent-a-car.netlify.app.
 
 ## Idea
 An application that provides registered users a car rental service in Bulgaria.
